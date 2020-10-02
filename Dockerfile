@@ -8,6 +8,10 @@ RUN apt-get update && apt-get install -y libxml2-utils
 # Apache Modules
 RUN a2enmod rewrite dav dav_fs dav_lock headers
 
+# Apache Config
+COPY conf/zz_prod.conf /etc/apache2/conf-available
+RUN a2enconf zz_prod
+
 # PHP Modules
 ## opcache
 RUN docker-php-ext-configure opcache && docker-php-ext-install -j$(nproc) opcache
